@@ -1,0 +1,45 @@
+from bs4 import BeautifulSoup
+from urllib.request import urlopen
+from urllib.error import HTTPError
+from urllib.error import URLError
+
+#web_page = input("enter website: ")
+#bs = BeautifulSoup(web_page, "html.parser")
+#website_video = bs().find(name="video").get("src").content
+# make gui 
+#gui takes in zip
+#check marks for stores to check
+#backend:
+# 
+#
+def getUrl(url):
+    try:
+        html = urlopen(url)
+        return html
+        
+    except HTTPError as e:
+        return None
+
+def getAttr(html):
+    try:
+        bs = BeautifulSoup(html.read(), 'html.parser')
+        #print(bs)
+        #title = bs.body.h1
+        price = bs.body.find_all('span')
+        #''
+    except AttributeError as e:
+        return None
+    #return title.get_text()
+    return price
+
+
+url = getUrl(input("enter website: "))
+if url != None:
+    attribute = getAttr(url)
+    if attribute != None:
+        for links in attribute:
+            print(links)
+    else:
+        print('attribute could not be found')
+else:
+    print('url could not be found')
